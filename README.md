@@ -3,6 +3,10 @@
 > Huế-inspired colorschemes for Neovim & LazyVim — generated from the
 > [Hue design token system](https://github.com/crafts69guy/hue-theme).
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/crafts69guy/hue-theme/main/design/Home.png" alt="Huế Mưa in Neovim with LazyVim" width="860" />
+</p>
+
 Three moods drawn from the atmosphere and visual culture of Huế, Việt Nam:
 
 | Mood | `:colorscheme` | Appearance | Feel |
