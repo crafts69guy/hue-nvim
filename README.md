@@ -1,4 +1,4 @@
-# 🌧 Hue for Neovim
+# <img src="https://raw.githubusercontent.com/crafts69guy/hue-theme/main/design/hue-mark.svg" height="28" alt="" valign="middle" /> Hue for Neovim
 
 > Huế-inspired colorschemes for Neovim & LazyVim — generated from the
 > [Hue design token system](https://github.com/crafts69guy/hue-theme).
