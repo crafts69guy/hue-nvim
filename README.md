@@ -1,65 +1,59 @@
-# Hue Neovim Theme
+# 🌧 Hue for Neovim
 
-Three Huế-inspired moods for [Neovim](https://neovim.io) (and
-[LazyVim](https://www.lazyvim.org)), generated from the Hue design token system:
+> Huế-inspired colorschemes for Neovim & LazyVim — generated from the
+> [Hue design token system](https://github.com/crafts69guy/hue-theme).
 
-- **Huế Mưa** (`hue-mua`) — a deep dark mood shaped by Huế rain and wet stone.
-- **Huế Hương** (`hue-huong`) — a softer dark mood drawn from the Perfume River and incense.
-- **Huế Cung** (`hue-cung`) — an ivory light mood informed by imperial lacquer and royal purple.
+Three moods drawn from the atmosphere and visual culture of Huế, Việt Nam:
 
-Each mood is a standard Neovim colorscheme: `:colorscheme hue-mua` /
-`hue-huong` / `hue-cung`. The theme sets `background` automatically and never
-sets your font — fonts are a terminal/GUI concern.
+| Mood | `:colorscheme` | Appearance | Feel |
+| --- | --- | --- | --- |
+| **Huế Mưa** | `hue-mua` | dark | deep charcoal, rain silver, muted jade |
+| **Huế Hương** | `hue-huong` | dark | river green, dusk blue, incense gold |
+| **Huế Cung** | `hue-cung` | light | ivory paper, imperial lacquer, royal purple |
 
-## How it is built
+## Features
 
-Everything under `lua/` and `colors/` is **generated** by the token build — do
-not edit it by hand. The Hue → Neovim mapping (highlight groups, Treesitter
-`@`-captures, LSP semantic tokens, diagnostics, terminal ANSI, and the lualine
-theme) lives in
-[`packages/tokens/src/adapters/neovim.ts`](../tokens/src/adapters/neovim.ts).
+- Treesitter `@`-captures and LSP semantic tokens
+- Diagnostics, git signs, and 16-color terminal ANSI
+- Plugin integrations: Telescope, neo-tree, which-key, Snacks, noice,
+  blink/nvim-cmp, flash, gitsigns, and a lualine theme
+- Optional transparent background
+- A public color API for your own highlights
+- WCAG-audited contrast — and it never changes your font
 
-```bash
-# Regenerate this package from the source tokens
-cd ../tokens && bun run build
-```
+## Requirements
 
-## Install
+- Neovim ≥ 0.9 and a true-color terminal (the theme enables `termguicolors`)
 
-This plugin currently lives inside the `hue-theme` monorepo. `lazy.nvim` adds a
-repository *root* to the runtimepath (not a subdirectory), so install it by
-pointing `dir` at this package:
+## Installation
+
+[lazy.nvim](https://github.com/folke/lazy.nvim):
 
 ```lua
--- lua/plugins/colorscheme.lua
-{
-  dir = vim.fn.expand("~/path/to/hue-theme/packages/nvim-plugin"),
-  name = "hue-nvim",
-  lazy = false,
-  priority = 1000,
-}
+{ "crafts69guy/hue-nvim", lazy = false, priority = 1000 }
 ```
 
-Then tell LazyVim which mood to load:
+Select a mood. With **LazyVim**:
 
 ```lua
 { "LazyVim/LazyVim", opts = { colorscheme = "hue-mua" } }
 ```
 
-### Transparent background
+Plain Neovim:
 
-Call `setup` with `transparent = true` to clear backgrounds so a translucent
-terminal shows through: the editor, floats/popups, and popular plugins
-(Telescope, neo-tree, which-key, Snacks, noice, nvim-notify, blink/nvim-cmp,
-treesitter-context, lazy.nvim, mason). Selection and active states keep their
-background for legibility. Plugins that link to `Normal`/`NormalFloat` inherit
-transparency automatically.
+```lua
+vim.cmd.colorscheme("hue-huong")
+```
+
+## Configuration
+
+`setup` is only needed for options:
 
 ```lua
 {
   "crafts69guy/hue-nvim",
-  priority = 1000,
   lazy = false,
+  priority = 1000,
   opts = { transparent = true },
   config = function(_, opts)
     require("hue").setup(opts)
@@ -67,48 +61,43 @@ transparency automatically.
 }
 ```
 
-For a non-LazyVim config:
+| Option | Default | Description |
+| --- | --- | --- |
+| `transparent` | `false` | Clear backgrounds (editor, floats, popups, and popular plugins) so a translucent terminal shows through. Selection/active states keep their background. |
+| `default` | `nil` | Mood used by `require("hue").load()` when called without an argument. |
 
-```lua
-vim.cmd.colorscheme("hue-huong")
-```
+The bundled **lualine** themes are auto-discovered with `theme = 'auto'` (the
+LazyVim default).
 
 ## Color API
 
-For building your own highlights from Hue colors, the plugin exposes a public
-API (so you never reach into the generated `lua/hue/palette.lua` directly):
+Build your own highlights from the active mood's palette — no need to touch the
+generated files:
 
 ```lua
 local hue = require("hue")
 
--- Semantic palette grouped by family, for the active mood by default.
-local c = hue.colors()          -- or hue.colors("huong")
-c.surface.canvas                -- "#0F1313"
-c.accent.primary                -- "#79B49A"
-c.status.error                  -- "#D2645A"
+local c = hue.colors()        -- grouped by family (active mood); or hue.colors("huong")
+c.surface.canvas              -- "#0F1313"
+c.accent.primary              -- "#79B49A"
 
--- Flat form keyed by the full contract name.
-hue.raw()["accent.primary"]     -- "#79B49A"
+hue.raw()["status.error"]     -- flat form, full contract names
 
--- Color math for derived shades (faint diff backgrounds, etc.).
-local u = hue.util
-u.darken(c.status.success, 0.18, c.surface.canvas)
-u.lighten(c.status.error, 0.9)
-u.blend("#79B49A", "#0F1313", 0.5)
+-- color math for derived shades
+hue.util.darken(c.status.success, 0.18, c.surface.canvas)
+hue.util.lighten(c.status.error, 0.9)
 ```
 
-`colors()`/`raw()` resolve the mood from the active `colorscheme` automatically,
-so derived highlights follow when you switch between moods.
+`colors()` / `raw()` resolve the mood from the active colorscheme, so derived
+highlights follow when you switch moods.
 
-### lualine
+## Credits
 
-The bundled lualine themes are auto-discovered when lualine uses
-`theme = 'auto'` (the LazyVim default), because each mood ships
-`lua/lualine/themes/hue-<mood>.lua`.
+Generated from the
+[Hue design token system](https://github.com/crafts69guy/hue-theme) — `lua/` and
+`colors/` are build output, not hand-edited. Rooted in the visual culture of
+Huế, Việt Nam.
 
-## Distribution note
+## License
 
-For a public release the **contents** of this directory (with `lua/` and
-`colors/` at the repository root) should be mirrored to a standalone
-`hue-nvim` repository so plugin managers can install it with the usual
-`"crafts69guy/hue-nvim"` shorthand.
+[MIT](./LICENSE)
