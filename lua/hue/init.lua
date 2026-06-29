@@ -2,11 +2,33 @@
 
 local M = {}
 
-M.options = { default = nil }
+M.options = { default = nil, transparent = false }
 
 function M.setup(opts)
   M.options = vim.tbl_extend("force", M.options, opts or {})
 end
+
+-- Groups whose background is cleared when `transparent` is enabled.
+local TRANSPARENT_GROUPS = {
+    "Normal",
+    "NormalNC",
+    "NormalFloat",
+    "FloatBorder",
+    "FloatTitle",
+    "SignColumn",
+    "FoldColumn",
+    "EndOfBuffer",
+    "MsgArea",
+    "Pmenu",
+    "PmenuSbar",
+    "PmenuExtra",
+    "PmenuKind",
+    "TelescopeNormal",
+    "TelescopeBorder",
+    "NeoTreeNormal",
+    "NeoTreeNormalNC",
+    "WhichKeyFloat",
+}
 
 function M.load(mood)
   mood = mood or M.options.default
@@ -33,6 +55,15 @@ function M.load(mood)
   local groups = require("hue.groups")(entry.semantic)
   for group, spec in pairs(groups) do
     vim.api.nvim_set_hl(0, group, spec)
+  end
+
+  if M.options.transparent then
+    for _, group in ipairs(TRANSPARENT_GROUPS) do
+      local hl = vim.api.nvim_get_hl(0, { name = group, link = false })
+      hl.bg = nil
+      hl.ctermbg = nil
+      vim.api.nvim_set_hl(0, group, hl)
+    end
   end
 end
 

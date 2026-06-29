@@ -46,6 +46,24 @@ Then tell LazyVim which mood to load:
 { "LazyVim/LazyVim", opts = { colorscheme = "hue-mua" } }
 ```
 
+### Transparent background
+
+Call `setup` with `transparent = true` to clear backgrounds (editor, floats,
+popups, Telescope/neo-tree) so a translucent terminal shows through. Selection
+and active states keep their background for legibility.
+
+```lua
+{
+  "crafts69guy/hue-nvim",
+  priority = 1000,
+  lazy = false,
+  opts = { transparent = true },
+  config = function(_, opts)
+    require("hue").setup(opts)
+  end,
+}
+```
+
 For a non-LazyVim config:
 
 ```lua
