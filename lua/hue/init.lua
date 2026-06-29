@@ -36,4 +36,11 @@ function M.load(mood)
   end
 end
 
+-- Public API for user configs building custom highlights from Hue colors.
+-- See lua/hue/colors.lua (palette access) and lua/hue/util.lua (color math).
+local colors = require("hue.colors")
+M.colors = colors.get
+M.raw = colors.raw
+M.util = require("hue.util")
+
 return M

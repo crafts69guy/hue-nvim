@@ -52,6 +52,33 @@ For a non-LazyVim config:
 vim.cmd.colorscheme("hue-huong")
 ```
 
+## Color API
+
+For building your own highlights from Hue colors, the plugin exposes a public
+API (so you never reach into the generated `lua/hue/palette.lua` directly):
+
+```lua
+local hue = require("hue")
+
+-- Semantic palette grouped by family, for the active mood by default.
+local c = hue.colors()          -- or hue.colors("huong")
+c.surface.canvas                -- "#0F1313"
+c.accent.primary                -- "#79B49A"
+c.status.error                  -- "#D2645A"
+
+-- Flat form keyed by the full contract name.
+hue.raw()["accent.primary"]     -- "#79B49A"
+
+-- Color math for derived shades (faint diff backgrounds, etc.).
+local u = hue.util
+u.darken(c.status.success, 0.18, c.surface.canvas)
+u.lighten(c.status.error, 0.9)
+u.blend("#79B49A", "#0F1313", 0.5)
+```
+
+`colors()`/`raw()` resolve the mood from the active `colorscheme` automatically,
+so derived highlights follow when you switch between moods.
+
 ### lualine
 
 The bundled lualine themes are auto-discovered when lualine uses
