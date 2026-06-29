@@ -1,0 +1,22 @@
+{
+  "name": "@crafts69guy/hue-nvim",
+  "displayName": "Hue Neovim Theme",
+  "private": false,
+  "version": "0.1.0",
+  "description": "Hue for Neovim/LazyVim — three Huế-inspired moods (Mưa, Hương, Cung) generated from the Hue design token system.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/crafts69guy/hue-theme.git",
+    "directory": "packages/nvim-plugin"
+  },
+  "keywords": [
+    "neovim",
+    "lazyvim",
+    "colorscheme",
+    "theme",
+    "hue",
+    "hue-theme"
+  ],
+  "author": "crafts69guy",
+  "license": "MIT"
+}
