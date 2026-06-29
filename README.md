@@ -48,9 +48,12 @@ Then tell LazyVim which mood to load:
 
 ### Transparent background
 
-Call `setup` with `transparent = true` to clear backgrounds (editor, floats,
-popups, Telescope/neo-tree) so a translucent terminal shows through. Selection
-and active states keep their background for legibility.
+Call `setup` with `transparent = true` to clear backgrounds so a translucent
+terminal shows through: the editor, floats/popups, and popular plugins
+(Telescope, neo-tree, which-key, Snacks, noice, nvim-notify, blink/nvim-cmp,
+treesitter-context, lazy.nvim, mason). Selection and active states keep their
+background for legibility. Plugins that link to `Normal`/`NormalFloat` inherit
+transparency automatically.
 
 ```lua
 {
