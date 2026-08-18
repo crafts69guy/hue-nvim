@@ -11,7 +11,7 @@ Three moods drawn from the atmosphere and visual culture of Huế, Việt Nam:
 
 | Mood | `:colorscheme` | Appearance | Feel |
 | --- | --- | --- | --- |
-| **Huế Mưa** | `hue-mua` | dark | deep charcoal, rain silver, muted jade |
+| **Huế Mưa** | `hue-mua` | dark | midnight navy, rain-blue chrome, vivid signals |
 | **Huế Hương** | `hue-huong` | dark | river green, dusk blue, incense gold |
 | **Huế Cung** | `hue-cung` | light | ivory paper, imperial lacquer, royal purple |
 
