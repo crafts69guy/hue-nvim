@@ -82,8 +82,8 @@ generated files:
 local hue = require("hue")
 
 local c = hue.colors()        -- grouped by family (active mood); or hue.colors("huong")
-c.surface.canvas              -- "#0F1313"
-c.accent.primary              -- "#79B49A"
+c.surface.canvas              -- "#0F1D19"
+c.accent.primary              -- "#6FD0A8"
 
 hue.raw()["status.error"]     -- flat form, full contract names
 
@@ -94,6 +94,16 @@ hue.util.lighten(c.status.error, 0.9)
 
 `colors()` / `raw()` resolve the mood from the active colorscheme, so derived
 highlights follow when you switch moods.
+
+## Also for
+
+The same three moods, from the same token contract:
+
+- **Neovim / LazyVim** — this one
+- [tmux](https://github.com/crafts69guy/hue-tmux)
+- [Yaak](https://github.com/crafts69guy/hue-yaak)
+- [Inkdrop](https://my.inkdrop.app/plugins/hue-mua-theme)
+- Ghostty, bat, lazygit, Fish/Tide — in the [main repo](https://github.com/crafts69guy/hue-theme)
 
 ## Credits
 
